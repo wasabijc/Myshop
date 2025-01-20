@@ -1,0 +1,31 @@
+server:
+  port: 12001
+spring:
+  application:
+    name: myshop-config
+  profiles:
+    active: subversion
+  cloud:
+    config:
+      server:
+        svn:
+          uri: https://DESKTOP-SQRPLRC:8443/svn/springcloud
+          username: wu
+          password: root
+          default-label: trunk
+  rabbitmq:
+    host: 192.168.172.129  # rabbitmq所在虚机地址
+management: #暴露触发消息总线的地址
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh
+eureka:
+  client:
+    register-with-eureka: true # 作为客户端需要注册到Eureka
+    fetch-registry: true  # 作为客户端需要从Eureka获取注册信息
+    service-url: # 客户端注册地址
+      defaultZone: http://localhost:8888/eureka
+  instance:
+    # 优先使用该服务的IP地址注册到Eureka，在生产环境建议改为true
+    prefer-ip-address: true
